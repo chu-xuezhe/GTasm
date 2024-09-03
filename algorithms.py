@@ -1,10 +1,6 @@
-
 import networkx as nx
 
-
 def get_gt_for_single_strand(graph, read_start_dict, read_end_dict, positive=False):
-    # New version
-    # components = [] # not for gt (later used)
     all_nodes = graph.nodes()
     gt_edges = set()
     if positive:
@@ -20,7 +16,6 @@ def get_gt_for_single_strand(graph, read_start_dict, read_end_dict, positive=Fal
         else:
             start_node = max(all_nodes, key=lambda x: read_end_dict[x])
 
-        # try finding a path and report the highest found node during the dfs
         current_graph = graph.subgraph(all_nodes)
         full_component = set(nx.dfs_postorder_nodes(current_graph, source=start_node))
         full_component.add(start_node)
@@ -54,8 +49,6 @@ def get_gt_for_single_strand(graph, read_start_dict, read_end_dict, positive=Fal
 
 
 def create_correct_graphs(graph, read_start_dict, read_end_dict, read_strand_dict, read_chr_dict):
-    # New version
-    # only real connections of true overlaps
     pos_edges = []
     neg_edges = []
 
@@ -77,8 +70,6 @@ def create_correct_graphs(graph, read_start_dict, read_end_dict, read_strand_dic
 
 
 def create_correct_graphs_combo(graph, read_start_dict, read_end_dict, read_strand_dict, read_chr_dict):
-    # New version
-    # only real connections of true overlaps
 
     unique_chr = set([v.item() for k, v in read_chr_dict.items()])
 
@@ -109,7 +100,6 @@ def create_correct_graphs_combo(graph, read_start_dict, read_end_dict, read_stra
 
 
 def process_graph(graph):
-    # New version
     read_start_dict = nx.get_node_attributes(graph, 'read_start')
     read_end_dict = nx.get_node_attributes(graph, 'read_end')
     read_strand_dict = nx.get_node_attributes(graph, 'read_strand')
@@ -132,7 +122,6 @@ def process_graph(graph):
 
 
 def process_graph_combo(graph):
-    # New version
     read_start_dict = nx.get_node_attributes(graph, 'read_start')
     read_end_dict = nx.get_node_attributes(graph, 'read_end')
     read_strand_dict = nx.get_node_attributes(graph, 'read_strand')

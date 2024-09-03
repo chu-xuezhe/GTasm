@@ -12,12 +12,8 @@ class ScorePredictor(nn.Module):
         self.W2 = nn.Linear(hidden_edge_scores, 1)
 
     def apply_edges(self, edges):
-        print("score_predictor apply_edges")
+        print("scoreing...")
         data = torch.cat([edges.src['x'], edges.dst['x'], edges.data['e']], dim=1)
-        print("-----------------------------------")
-        print(edges.dst['x'].shape)
-        print(edges.src['x'].shape)
-        print(data.shape)
         h = self.W1(data)
         h = torch.relu(h)
         score = self.W2(h)
